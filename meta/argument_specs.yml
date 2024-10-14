@@ -10,15 +10,10 @@ argument_specs:
         type: str
         required: true
 
-      python_archive_format:
-        description: "Preferred download format when downloading python."
-        type: str
-        default: tgz
-
       python_url:
         description: "Where python is download from."
         type: str
-        default: "https://www.python.org/ftp/python/Python-{{ python_version }}.{{ python_archive_format }}"
+        default: "https://www.python.org/ftp/python/Python-{{ python_version }}.tgz"
 
       python_install_prefix:
         description: "Directory for Python binaries (--prefix) aka where Python will be installed."
