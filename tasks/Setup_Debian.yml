@@ -1,12 +1,9 @@
 ---
 # tasks file for python
 
-- name: Setup_Debian | Upgrade all OS packages.
+- name: Setup_Debian | Download package information.
   ansible.builtin.apt:
-    package: '*'
     update_cache: true
-    only_upgrade: true
-    state: latest
   become: true
 
 - name: Setup_Debian | Install required OS packages.
@@ -14,3 +11,19 @@
     package: "{{ __python_os_packages }}"
     state: present
   become: true
+
+
+- name: Setup_Debian | Install optional OS packages.
+  block:
+
+    - name: Setup_Debian | Install optional OS packages.
+      ansible.builtin.apt:
+        name: "{{ __python_optional_os_packages }}"
+        state: present
+      become: true
+
+  rescue:
+
+    - name: Setup_Debian | Continue without installing all optional packages.
+      ansible.builtin.debug:
+        msg: "Failed to install one or more optional OS packages."

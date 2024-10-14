@@ -1,15 +1,20 @@
 ---
 # vars file for python
 
-__python_os_packages:
+__python_required_os_packages:
   - wget
+  - tar
+  - gzip
   - gcc
+  - make
+  - zlib-devel
   - openssl-devel
+
+__python_optional_os_packages:
   - bzip2-devel
   - libffi-devel
-  - xz-devel
-  - tk-devel
-  - sqlite-devel
   - readline-devel
+  - sqlite-devel
+  - tk-devel
   - uuid
-  - 'Development Tools'
+  - xz-devel
