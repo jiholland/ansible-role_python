@@ -1,0 +1,15 @@
+---
+# vars file for python
+
+__python_os_packages:
+  - wget
+  - gcc
+  - openssl-devel
+  - bzip2-devel
+  - libffi-devel
+  - xz-devel
+  - tk-devel
+  - sqlite-devel
+  - readline-devel
+  - uuid
+  - 'Development Tools'

@@ -1,0 +1,16 @@
+---
+# tasks file for python
+
+- name: Setup_Debian | Upgrade all OS packages.
+  ansible.builtin.apt:
+    package: '*'
+    update_cache: true
+    only_upgrade: true
+    state: latest
+  become: true
+
+- name: Setup_Debian | Install required OS packages.
+  ansible.builtin.apt:
+    package: "{{ __python_os_packages }}"
+    state: present
+  become: true

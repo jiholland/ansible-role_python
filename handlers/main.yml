@@ -1,0 +1,9 @@
+---
+# handlers file for python
+
+- name: Remove temporary build directory.
+  ansible.builtin.file:
+    path: "{{ __python_temp_dir_output['path'] }}"
+    state: absent
+  become: true
+  check_mode: false

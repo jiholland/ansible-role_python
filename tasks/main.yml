@@ -1,0 +1,78 @@
+---
+# tasks file for python
+
+- name: Gather user facts.
+  ansible.builtin.setup:
+    gather_subset:
+      - min
+
+- name: Assert python version.
+  ansible.builtin.assert:
+    that:
+      - python_version is ansible.builtin.version(ansible_facts['python_version'], '>')
+    fail_msg: "Python{{ python_version }} or higher is already installed."
+    quiet: true
+
+- name: Include OS-specific variables.
+  ansible.builtin.include_vars:
+    file: "{{ role_path }}/vars/{{ ansible_facts['os_family'] }}.yml"
+
+- name: Include OS-specific tasks.
+  ansible.builtin.include_tasks:
+    file: "{{ role_path }}/tasks/Setup_{{ ansible_facts['os_family'] }}.yml"
+
+- name: Create temporary build directory.
+  ansible.builtin.tempfile:
+    path: "/tmp"
+    state: directory
+  check_mode: false
+  register: __python_temp_dir_output
+  notify: Remove temporary build directory.
+
+- name: Download Python archive.
+  ansible.builtin.get_url:
+    url: "{{ python_url }}"
+    dest: "{{ __python_temp_dir_output['path'] }}"
+    mode: u=rwx,g=rx,o=rx
+  check_mode: false
+
+- name: Extract Python binaries from archive.
+  ansible.builtin.unarchive:
+    src: "{{ __python_temp_dir_output['path'] }}/Python-{{ python_version }}.{{ python_archive_format }}"
+    dest: "{{ __python_temp_dir_output['path'] }}"
+    remote_src: true
+    mode: u=rwx,g=rx,o=rx
+  check_mode: false
+
+- name: Ensure custom prefix for Python binaries.
+  ansible.builtin.command:
+    cmd: "./configure --prefix={{ python_install_prefix }}"
+    chdir: "{{ __python_temp_dir_output['path'] }}/Python-{{ python_version }}"
+  changed_when: true
+
+- name: Compile and altinstall Python.
+  community.general.make:
+    chdir: "{{ __python_temp_dir_output['path'] }}/Python-{{ python_version }}"
+    jobs: "{{ ansible_fact['processor_nproc'] | default(omit) }}"
+    target: altinstall
+  become: true
+
+- name: Ensure ~/.local/bin directory is present.
+  ansible.builtin.file:
+    path: "{{ ansible_facts['user_dir'] }}/.local/bin"
+    mode: u=rwx,g=rx,o=rx
+    state: directory
+
+- name: Create symbolic link for Python and pip in ~/.local/bin.
+  ansible.builtin.file:
+    src: "{{ python_install_prefix }}/bin/{{ python_item['src'] }}{{ python_version | ansible.builtin.regex_search('[0-9]*[.][0-9]+') }}"
+    dest: "{{ ansible_facts['user_dir'] }}/.local/bin/{{ python_item['dest'] }}"
+    state: link
+  loop:
+    - src: python
+      dest: python3
+    - src: pip
+      dest: pip
+  loop_control:
+    loop_var: python_item
+    label: "{{ python_item['dest'] }}"
