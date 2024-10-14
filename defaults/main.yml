@@ -3,8 +3,6 @@
 
 # python_version: "3.12.7"
 
-python_archive_format: tgz
-
-python_url: "https://www.python.org/ftp/python/{{ python_version }}/Python-{{ python_version }}.{{ python_archive_format }}"
+python_url: "https://www.python.org/ftp/python/{{ python_version }}/Python-{{ python_version }}.tgz"
 
 python_install_prefix: "/opt/python/{{ python_version }}"

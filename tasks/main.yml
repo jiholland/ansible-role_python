@@ -38,7 +38,7 @@
 
 - name: Extract Python binaries from archive.
   ansible.builtin.unarchive:
-    src: "{{ __python_temp_dir_output['path'] }}/Python-{{ python_version }}.{{ python_archive_format }}"
+    src: "{{ __python_temp_dir_output['path'] }}/Python-{{ python_version }}.tgz"
     dest: "{{ __python_temp_dir_output['path'] }}"
     remote_src: true
     mode: u=rwx,g=rx,o=rx

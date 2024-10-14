@@ -12,7 +12,6 @@ Role Variables
 --------------
 
 - python_version
-- python_archive_format
 - python_url
 - python_install_prefix
 
