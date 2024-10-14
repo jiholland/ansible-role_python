@@ -46,7 +46,7 @@
 
 - name: Ensure custom prefix for Python binaries.
   ansible.builtin.command:
-    cmd: "./configure --prefix={{ python_install_prefix }}"
+    cmd: "./configure --prefix={{ python_prefix }}"
     chdir: "{{ __python_temp_dir_output['path'] }}/Python-{{ python_version }}"
   changed_when: true
 
@@ -65,7 +65,7 @@
 
 - name: Create symbolic link for Python and pip in ~/.local/bin.
   ansible.builtin.file:
-    src: "{{ python_install_prefix }}/bin/{{ python_item['src'] }}{{ python_version | ansible.builtin.regex_search('[0-9]*[.][0-9]+') }}"
+    src: "{{ python_prefix }}/bin/{{ python_item['src'] }}{{ python_version | ansible.builtin.regex_search('[0-9]*[.][0-9]+') }}"
     dest: "{{ ansible_facts['user_dir'] }}/.local/bin/{{ python_item['dest'] }}"
     state: link
   loop:
