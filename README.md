@@ -13,7 +13,7 @@ Role Variables
 
 - python_version
 - python_url
-- python_install_prefix
+- python_prefix
 
 Dependencies
 ------------

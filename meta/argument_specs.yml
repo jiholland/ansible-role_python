@@ -15,7 +15,7 @@ argument_specs:
         type: str
         default: "https://www.python.org/ftp/python/Python-{{ python_version }}.tgz"
 
-      python_install_prefix:
+      python_prefix:
         description: "Directory for Python binaries (--prefix) aka where Python will be installed."
         type: str
         default: "/opt/python/{{ python_version }}"

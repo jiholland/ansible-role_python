@@ -5,4 +5,4 @@
 
 python_url: "https://www.python.org/ftp/python/{{ python_version }}/Python-{{ python_version }}.tgz"
 
-python_install_prefix: "/opt/python/{{ python_version }}"
+python_prefix: "/opt/python/{{ python_version }}"
