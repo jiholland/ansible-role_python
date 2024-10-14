@@ -1,22 +1,22 @@
 ---
 # vars file for python
 
-__python_os_packages:
-  - build-essential
-  - gdb
-  - lcov
-  - pkg-config
+__python_required_os_packages:
+  - wget
+  - tar
+  - gzip
+  - gcc
+  - make
+  - zlib1g-dev
+  - libssl-dev
+
+__python_optional_os_packages:
   - libbz2-dev
   - libffi-dev
   - libgdbm-dev
-  - libgdbm-compat-dev
   - liblzma-dev
-  - libncurses5-dev
+  - libncursesw5-dev
   - libreadline6-dev
   - libsqlite3-dev
-  - libssl-dev
-  - lzma
-  - lzma-dev
   - tk-dev
   - uuid-dev
-  - zlib1g-dev

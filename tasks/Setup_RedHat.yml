@@ -1,15 +1,15 @@
 ---
 # tasks file for python
 
-- name: Setup_RedHat | Upgrade all OS packages.
-  ansible.builtin.dnf:
-    name: '*'
-    update_only: true
-    state: latest
-  become: true
-
 - name: Setup_RedHat | Install required OS packages.
   ansible.builtin.dnf:
-    name: "{{ __python_os_packages }}"
+    name: "{{ __python_required_os_packages }}"
+    state: present
+  become: true
+
+- name: Setup_RedHat | Install optional OS packages, but skip broken packages.
+  ansible.builtin.dnf:
+    name: "{{ __python_optional_os_packages }}"
+    skip_broken: true
     state: present
   become: true
