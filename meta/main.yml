@@ -2,7 +2,7 @@
 galaxy_info:
   namespace: jiholland
   role_name: python
-  description: "Build, compile and install Python from source code."
+  description: "Build, compile, and altinstall Python from source code on a system with Python already installed."
   author: Jørn Ivar Holland
   license: BSD-3-Clause
   min_ansible_version: "2.15"
