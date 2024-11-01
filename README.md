@@ -1,7 +1,7 @@
 🐍 jiholland.python
 ===================
 
-Build, compile, and install Python from source code.
+Build, compile, and altinstall Python from source code on a system with Python already installed.
 
 Requirements
 ------------
@@ -24,7 +24,7 @@ Example Playbook
 ----------------
 ```YAML
 ---
-- name: Download, build, compile, and install Python from source code.
+- name: Download, build, compile, and altinstall Python from source code.
   gather_facts: true
   hosts: localhost
   roles:
